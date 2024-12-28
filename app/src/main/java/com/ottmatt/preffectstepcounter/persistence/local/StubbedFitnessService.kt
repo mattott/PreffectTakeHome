@@ -1,6 +1,6 @@
 package com.ottmatt.preffectstepcounter.persistence.local
 
-class StubbedDailyStepsService: DailyStepsService {
+class StubbedFitnessService: FitnessService {
     override fun getCurrentDailySteps(): Int {
         return 100
     }

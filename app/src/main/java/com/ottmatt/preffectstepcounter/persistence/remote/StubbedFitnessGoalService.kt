@@ -1,6 +1,6 @@
 package com.ottmatt.preffectstepcounter.persistence.remote
 
-class StubbedPersonalDailyGoalService: PersonalDailyGoalService {
+class StubbedFitnessGoalService: FitnessGoalService {
     override fun getDailyStepsGoal(): Int {
         return 6000
     }

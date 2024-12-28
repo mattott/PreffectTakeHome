@@ -1,5 +1,5 @@
 package com.ottmatt.preffectstepcounter.persistence.remote
 
-interface PersonalDailyGoalService {
+interface FitnessGoalService {
     fun getDailyStepsGoal(): Int
 }

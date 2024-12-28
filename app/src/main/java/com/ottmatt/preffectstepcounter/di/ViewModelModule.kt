@@ -1,9 +1,9 @@
 package com.ottmatt.preffectstepcounter.di
 
-import com.ottmatt.preffectstepcounter.persistence.local.DailyStepsService
-import com.ottmatt.preffectstepcounter.persistence.remote.PersonalDailyGoalService
-import com.ottmatt.preffectstepcounter.persistence.local.StubbedDailyStepsService
-import com.ottmatt.preffectstepcounter.persistence.remote.StubbedPersonalDailyGoalService
+import com.ottmatt.preffectstepcounter.persistence.local.FitnessService
+import com.ottmatt.preffectstepcounter.persistence.remote.FitnessGoalService
+import com.ottmatt.preffectstepcounter.persistence.local.StubbedFitnessService
+import com.ottmatt.preffectstepcounter.persistence.remote.StubbedFitnessGoalService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,13 +16,13 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun getDailyStepsService(): DailyStepsService {
-        return StubbedDailyStepsService()
+    fun getDailyStepsService(): FitnessService {
+        return StubbedFitnessService()
     }
 
     @Provides
     @ViewModelScoped
-    fun getPersonalDailyGoalService(): PersonalDailyGoalService {
-        return StubbedPersonalDailyGoalService()
+    fun getPersonalDailyGoalService(): FitnessGoalService {
+        return StubbedFitnessGoalService()
     }
 }

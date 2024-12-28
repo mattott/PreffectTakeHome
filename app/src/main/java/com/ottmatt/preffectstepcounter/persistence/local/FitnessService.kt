@@ -1,5 +1,5 @@
 package com.ottmatt.preffectstepcounter.persistence.local
 
-interface DailyStepsService {
+interface FitnessService {
     fun getCurrentDailySteps(): Int
 }

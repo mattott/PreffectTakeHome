@@ -1,4 +1,4 @@
-package com.ottmatt.preffectstepcounter.ui.steptracker
+package com.ottmatt.preffectstepcounter.ui.fitnesstracker
 
 /**
  * Provides values for the user's current daily steps.
@@ -6,7 +6,7 @@ package com.ottmatt.preffectstepcounter.ui.steptracker
  * @param currentSteps The current number of steps the user has taken today.
  * @param isLoading Whether or not we are in the process of gathering [currentSteps].
  */
-data class CurrentDailyStepsUiState(
+data class FitnessUiState(
     val currentSteps: Int,
     val isLoading: Boolean
 )

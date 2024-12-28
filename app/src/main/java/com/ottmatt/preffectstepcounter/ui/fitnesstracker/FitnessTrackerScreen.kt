@@ -1,4 +1,4 @@
-package com.ottmatt.preffectstepcounter.ui.steptracker
+package com.ottmatt.preffectstepcounter.ui.fitnesstracker
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +22,7 @@ import com.ottmatt.preffectstepcounter.ui.theme.SubtitleStyle
 import com.ottmatt.preffectstepcounter.ui.theme.TitleStyle
 
 @Composable
-fun StepTrackerScreen(viewModel: StepTrackerViewModel = viewModel()) {
+fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
     // TODO: different styles for daily count and goal
     ConstraintLayout(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun StepTrackerScreen(viewModel: StepTrackerViewModel = viewModel()) {
     ) {
         val (dailyCount, dailyGoal) = createRefs()
         DailyStepCount(
-            viewModel.currentDailyStepsUiState.collectAsState(),
+            viewModel.fitnessUiState.collectAsState(),
             Modifier.constrainAs(dailyCount) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -41,7 +41,7 @@ fun StepTrackerScreen(viewModel: StepTrackerViewModel = viewModel()) {
         )
 
         PersonalDailyGoal(
-            viewModel.personalDailyGoalUiState.collectAsState(),
+            viewModel.fitnessGoalUiState.collectAsState(),
             Modifier.constrainAs(dailyGoal) {
                 top.linkTo(dailyCount.bottom)
                 start.linkTo(parent.start)
@@ -54,7 +54,7 @@ fun StepTrackerScreen(viewModel: StepTrackerViewModel = viewModel()) {
 }
 
 @Composable
-fun DailyStepCount(currentDailyStepsUiState: State<CurrentDailyStepsUiState>, modifier: Modifier) {
+fun DailyStepCount(fitnessUiState: State<FitnessUiState>, modifier: Modifier) {
     Card(
         modifier = modifier.then(Modifier.padding(16.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -77,7 +77,7 @@ fun DailyStepCount(currentDailyStepsUiState: State<CurrentDailyStepsUiState>, mo
             )
 
             Text(
-                text = "${currentDailyStepsUiState.value.currentSteps}",
+                text = "${fitnessUiState.value.currentSteps}",
                 style = SubtitleStyle,
                 modifier = Modifier.constrainAs(subtitle) {
                     top.linkTo(title.bottom)
@@ -92,7 +92,7 @@ fun DailyStepCount(currentDailyStepsUiState: State<CurrentDailyStepsUiState>, mo
 }
 
 @Composable
-fun PersonalDailyGoal(personalDailyGoalUiState: State<PersonalDailyGoalUiState>, modifier: Modifier) {
+fun PersonalDailyGoal(fitnessGoalUiState: State<FitnessGoalUiState>, modifier: Modifier) {
     Card(
         modifier = modifier.then(Modifier.padding(16.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -115,7 +115,7 @@ fun PersonalDailyGoal(personalDailyGoalUiState: State<PersonalDailyGoalUiState>,
             )
 
             Text(
-                text = "${personalDailyGoalUiState.value.stepsInGoal}",
+                text = "${fitnessGoalUiState.value.stepsInGoal}",
                 style = SubtitleStyle,
                 modifier = Modifier.constrainAs(subtitle) {
                     top.linkTo(title.bottom)
@@ -133,6 +133,6 @@ fun PersonalDailyGoal(personalDailyGoalUiState: State<PersonalDailyGoalUiState>,
 @Composable
 fun StepTrackerPreview() {
     PreffectStepCounterTheme {
-        StepTrackerScreen()
+        FitnessTrackerScreen()
     }
 }
