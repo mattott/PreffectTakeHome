@@ -1,16 +1,18 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
 }
 
 android {
     namespace = "com.ottmatt.preffectstepcounter"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.ottmatt.preffectstepcounter"
         minSdk = 27
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -55,6 +57,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)

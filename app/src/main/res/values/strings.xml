@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Preffect Step Counter</string>
+    <string name="daily_step_count">Today\'s steps</string>
+<!--    pluralize this string -->
+    <string name="personal_daily_goal">Your daily step goal</string>
 </resources>
