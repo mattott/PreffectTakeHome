@@ -1,16 +1,42 @@
 package com.ottmatt.preffectstepcounter.view
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ottmatt.preffectstepcounter.repository.FrontPageRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FrontPageViewModel : ViewModel() {
+@HiltViewModel
+class FrontPageViewModel @Inject constructor(
+    private val frontPageRepository: FrontPageRepository
+) : ViewModel() {
     // todo: populate with data from google fit.
     private val _currentDailyStepsUiState = MutableStateFlow(CurrentDailyStepsUiState(100, false))
-    val currentDailyStepsUiState: StateFlow<CurrentDailyStepsUiState> = _currentDailyStepsUiState.asStateFlow()
+    val currentDailyStepsUiState: StateFlow<CurrentDailyStepsUiState> =
+        _currentDailyStepsUiState.asStateFlow()
 
     // todo: populate with data from server.
     private val _personalDailyGoalUiState = MutableStateFlow(PersonalDailyGoalUiState(6000, false))
-    val personalDailyGoalUiState: StateFlow<PersonalDailyGoalUiState> = _personalDailyGoalUiState.asStateFlow()
+    val personalDailyGoalUiState: StateFlow<PersonalDailyGoalUiState> =
+        _personalDailyGoalUiState.asStateFlow()
+
+    fun getCurrentDailySteps() {
+        // how do we handle the case where we are waiting for results?
+        // this was something that came up during the 2nd interview and something that I probably
+        // need to have solved for.
+        viewModelScope.launch {
+            frontPageRepository.getCurrentDailySteps()
+        }
+    }
+
+    fun getPersonalDailyGoal() {
+        // if this takes too long to fetch, then we need to make the request in a Service.
+        viewModelScope.launch {
+            frontPageRepository.getPersonalDailyStepsGoal()
+        }
+    }
 }

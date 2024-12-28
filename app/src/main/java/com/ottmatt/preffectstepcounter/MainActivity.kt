@@ -18,5 +18,6 @@ class MainActivity : ComponentActivity() {
                 FrontPageScreen()
             }
         }
+        // todo: fetch results here
     }
 }
