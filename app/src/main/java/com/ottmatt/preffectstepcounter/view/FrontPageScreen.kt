@@ -6,6 +6,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -13,21 +15,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ottmatt.preffectstepcounter.R
 import com.ottmatt.preffectstepcounter.ui.theme.PreffectStepCounterTheme
 import com.ottmatt.preffectstepcounter.ui.theme.SubtitleStyle
 import com.ottmatt.preffectstepcounter.ui.theme.TitleStyle
 
 @Composable
-fun FrontPageScreen() {
+fun FrontPageScreen(viewModel: FrontPageViewModel = viewModel()) {
+    // TODO: different styles for daily count and goal
     ConstraintLayout(
         modifier = Modifier
             .padding(24.dp)
             .fillMaxWidth()
     ) {
-        // TODO: different styles for daily count and goal
         val (dailyCount, dailyGoal) = createRefs()
         DailyStepCount(
+            viewModel.currentDailyStepsUiState.collectAsState(),
             Modifier.constrainAs(dailyCount) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -35,7 +39,9 @@ fun FrontPageScreen() {
                 bottom.linkTo(dailyGoal.top)
             }
         )
+
         PersonalDailyGoal(
+            viewModel.personalDailyGoalUiState.collectAsState(),
             Modifier.constrainAs(dailyGoal) {
                 top.linkTo(dailyCount.bottom)
                 start.linkTo(parent.start)
@@ -48,7 +54,7 @@ fun FrontPageScreen() {
 }
 
 @Composable
-fun DailyStepCount(modifier: Modifier) {
+fun DailyStepCount(currentDailyStepsUiState: State<CurrentDailyStepsUiState>, modifier: Modifier) {
     Card(
         modifier = modifier.then(Modifier.padding(16.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -71,7 +77,7 @@ fun DailyStepCount(modifier: Modifier) {
             )
 
             Text(
-                text = "1000", // todo: replace with google fit api call
+                text = "${currentDailyStepsUiState.value.currentSteps}",
                 style = SubtitleStyle,
                 modifier = Modifier.constrainAs(subtitle) {
                     top.linkTo(title.bottom)
@@ -86,7 +92,7 @@ fun DailyStepCount(modifier: Modifier) {
 }
 
 @Composable
-fun PersonalDailyGoal(modifier: Modifier) {
+fun PersonalDailyGoal(personalDailyGoalUiState: State<PersonalDailyGoalUiState>, modifier: Modifier) {
     Card(
         modifier = modifier.then(Modifier.padding(16.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -109,7 +115,7 @@ fun PersonalDailyGoal(modifier: Modifier) {
             )
 
             Text(
-                text = "2000", // todo: replace with network call
+                text = "${personalDailyGoalUiState.value.stepsInGoal}",
                 style = SubtitleStyle,
                 modifier = Modifier.constrainAs(subtitle) {
                     top.linkTo(title.bottom)
