@@ -1,4 +1,4 @@
-package com.ottmatt.preffectstepcounter.view
+package com.ottmatt.preffectstepcounter.ui.steptracker
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,7 +22,7 @@ import com.ottmatt.preffectstepcounter.ui.theme.SubtitleStyle
 import com.ottmatt.preffectstepcounter.ui.theme.TitleStyle
 
 @Composable
-fun FrontPageScreen(viewModel: FrontPageViewModel = viewModel()) {
+fun StepTrackerScreen(viewModel: StepTrackerViewModel = viewModel()) {
     // TODO: different styles for daily count and goal
     ConstraintLayout(
         modifier = Modifier
@@ -131,8 +131,8 @@ fun PersonalDailyGoal(personalDailyGoalUiState: State<PersonalDailyGoalUiState>,
 
 @Preview(showBackground = true)
 @Composable
-fun FrontPagePreview() {
+fun StepTrackerPreview() {
     PreffectStepCounterTheme {
-        FrontPageScreen()
+        StepTrackerScreen()
     }
 }

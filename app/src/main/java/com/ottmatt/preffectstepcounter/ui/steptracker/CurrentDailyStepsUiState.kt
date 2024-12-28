@@ -1,4 +1,4 @@
-package com.ottmatt.preffectstepcounter.view
+package com.ottmatt.preffectstepcounter.ui.steptracker
 
 /**
  * Provides values for the user's current daily steps.

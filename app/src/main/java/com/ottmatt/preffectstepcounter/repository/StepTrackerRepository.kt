@@ -4,7 +4,7 @@ import com.ottmatt.preffectstepcounter.persistence.local.DailyStepsService
 import com.ottmatt.preffectstepcounter.persistence.remote.PersonalDailyGoalService
 import javax.inject.Inject
 
-class FrontPageRepository @Inject constructor(
+class StepTrackerRepository @Inject constructor(
     private val dailyStepsService: DailyStepsService,
     private val personalDailyGoalService: PersonalDailyGoalService
 ) {

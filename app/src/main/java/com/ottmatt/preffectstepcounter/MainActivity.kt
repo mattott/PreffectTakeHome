@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.ottmatt.preffectstepcounter.ui.theme.PreffectStepCounterTheme
-import com.ottmatt.preffectstepcounter.view.FrontPageScreen
+import com.ottmatt.preffectstepcounter.ui.steptracker.StepTrackerScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PreffectStepCounterTheme {
-                FrontPageScreen()
+                StepTrackerScreen()
             }
         }
         // todo: fetch results here

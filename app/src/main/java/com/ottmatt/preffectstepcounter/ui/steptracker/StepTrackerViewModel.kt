@@ -1,8 +1,8 @@
-package com.ottmatt.preffectstepcounter.view
+package com.ottmatt.preffectstepcounter.ui.steptracker
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ottmatt.preffectstepcounter.repository.FrontPageRepository
+import com.ottmatt.preffectstepcounter.repository.StepTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FrontPageViewModel @Inject constructor(
-    private val frontPageRepository: FrontPageRepository
+class StepTrackerViewModel @Inject constructor(
+    private val stepTrackerRepository: StepTrackerRepository
 ) : ViewModel() {
     // todo: populate with data from google fit.
     private val _currentDailyStepsUiState = MutableStateFlow(CurrentDailyStepsUiState(100, false))
@@ -29,14 +29,14 @@ class FrontPageViewModel @Inject constructor(
         // this was something that came up during the 2nd interview and something that I probably
         // need to have solved for.
         viewModelScope.launch {
-            frontPageRepository.getCurrentDailySteps()
+            stepTrackerRepository.getCurrentDailySteps()
         }
     }
 
     fun getPersonalDailyGoal() {
         // if this takes too long to fetch, then we need to make the request in a Service.
         viewModelScope.launch {
-            frontPageRepository.getPersonalDailyStepsGoal()
+            stepTrackerRepository.getPersonalDailyStepsGoal()
         }
     }
 }
