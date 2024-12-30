@@ -15,24 +15,22 @@ import javax.inject.Inject
 class FitnessTrackerViewModel @Inject constructor(
     private val fitnessTrackerRepository: FitnessTrackerRepository
 ) : ViewModel() {
-    // todo: populate with data from google fit.
-    private val _fitnessUiState = MutableStateFlow(FitnessUiState(100, false))
-    val fitnessUiState: StateFlow<FitnessUiState<Int>> =
-        _fitnessUiState.asStateFlow()
+    private val _stepCountUiState = MutableStateFlow(FitnessUiState(100, false))
+    val stepCountUiState: StateFlow<FitnessUiState<Int>> =
+        _stepCountUiState.asStateFlow()
 
-    // todo: populate with data from server.
-    private val _fitnessGoalUiState = MutableStateFlow(FitnessUiState(6000, false))
-    val fitnessGoalUiState: StateFlow<FitnessUiState<Int>> =
-        _fitnessGoalUiState.asStateFlow()
+    private val _stepCountGoalUiState = MutableStateFlow(FitnessUiState(6000, false))
+    val stepCountGoalUiState: StateFlow<FitnessUiState<Int>> =
+        _stepCountGoalUiState.asStateFlow()
 
-    fun loadCurrentFitness() {
-        // how do we handle the case where we are waiting for results?
-        // this was something that came up during the 2nd interview and something that I probably
-        // need to have solved for.
-        _fitnessUiState.update { state -> state.copy(isLoading = true) }
+    /**
+     * Fetch and update user fitness data.
+     */
+    fun loadFitnessData() {
+        _stepCountUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
             val stepCount = fitnessTrackerRepository.getStepCount()
-            _fitnessUiState.update { state ->
+            _stepCountUiState.update { state ->
                 state.copy(
                     fitnessValue = stepCount,
                     isLoading = false
@@ -41,12 +39,14 @@ class FitnessTrackerViewModel @Inject constructor(
         }
     }
 
-    fun loadFitnessGoal() {
-        // if this takes too long to fetch, then we need to make the request in a Service.
-        _fitnessGoalUiState.update { state -> state.copy(isLoading = true) }
+    /**
+     * Fetch and update user fitness goals.
+     */
+    fun loadFitnessGoals() {
+        _stepCountGoalUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
             val stepCountGoal = fitnessTrackerRepository.getStepCountGoal()
-            _fitnessGoalUiState.update { state ->
+            _stepCountGoalUiState.update { state ->
                 state.copy(
                     fitnessValue = stepCountGoal,
                     isLoading = false

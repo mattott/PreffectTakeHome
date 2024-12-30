@@ -4,8 +4,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -41,7 +39,7 @@ fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
     ) {
         val (dailyCount, dailyGoal) = createRefs()
         FitnessCardWithProgress(
-            viewModel.fitnessUiState.collectAsState(),
+            viewModel.stepCountUiState.collectAsState(),
             R.string.daily_step_count,
             Modifier.constrainAs(dailyCount) {
                 top.linkTo(parent.top)
@@ -52,7 +50,7 @@ fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
         )
 
         FitnessCardWithProgress(
-            viewModel.fitnessGoalUiState.collectAsState(),
+            viewModel.stepCountGoalUiState.collectAsState(),
             R.string.personal_daily_goal,
             Modifier.constrainAs(dailyGoal) {
                 top.linkTo(dailyCount.bottom)

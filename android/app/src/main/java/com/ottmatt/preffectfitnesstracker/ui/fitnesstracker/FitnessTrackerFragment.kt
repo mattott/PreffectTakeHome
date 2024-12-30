@@ -32,8 +32,8 @@ class FitnessTrackerFragment : Fragment() {
             }
         }
 
-        viewModel.loadCurrentFitness()
-        viewModel.loadFitnessGoal()
+        viewModel.loadFitnessData()
+        viewModel.loadFitnessGoals()
 
         return view
     }
