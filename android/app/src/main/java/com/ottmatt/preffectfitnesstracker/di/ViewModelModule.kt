@@ -19,13 +19,13 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun getDailyStepsService(): FitnessService {
+    fun getFitnessService(): FitnessService {
         return StubbedFitnessService()
     }
 
     @Provides
     @ViewModelScoped
-    fun getPersonalDailyGoalService(httpClient: HttpClient): FitnessGoalService {
+    fun getFitnessGoalService(httpClient: HttpClient): FitnessGoalService {
         return RemoteFitnessGoalService(httpClient)
     }
 
