@@ -2,10 +2,10 @@ package com.ottmatt.preffectfitnesstracker.di
 
 import android.content.Context
 import android.content.res.Resources
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessService
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalService
-import com.ottmatt.preffectfitnesstracker.persistence.local.StubbedFitnessService
-import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteFitnessGoalService
+import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
+import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessStubbedDataSource
+import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
+import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsNetworkDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,14 +22,14 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun getFitnessService(): FitnessService {
-        return StubbedFitnessService()
+    fun getFitnessDataSource(): FitnessDataSource {
+        return FitnessStubbedDataSource()
     }
 
     @Provides
     @ViewModelScoped
-    fun getFitnessGoalService(httpClient: HttpClient): FitnessGoalService {
-        return RemoteFitnessGoalService(httpClient)
+    fun getFitnessGoalDataSource(httpClient: HttpClient): FitnessGoalsDataSource {
+        return FitnessGoalsNetworkDataSource(httpClient)
     }
 
     @Provides

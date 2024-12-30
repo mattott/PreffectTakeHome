@@ -1,6 +1,6 @@
 package com.ottmatt.preffectfitnesstracker.persistence.local
 
-import com.ottmatt.preffectfitnesstracker.persistence.ApiResult
+import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
 import kotlinx.coroutines.delay
 
 /**
@@ -8,9 +8,9 @@ import kotlinx.coroutines.delay
  * June 30 2025, we'd need to migrate to the Health Connect API. However, this shouldn't be too big
  * of a problem using the FitnessService API as a shim between the actual data provider.
  */
-class StubbedFitnessService : FitnessService {
-    override suspend fun getStepCount(): ApiResult<Int> {
+class FitnessStubbedDataSource : FitnessDataSource {
+    override suspend fun getStepCount(): DataSourceResult<Int> {
         delay(2000) // sleep to emulate data retrieval from health connect api.
-        return ApiResult.Success(5300)
+        return DataSourceResult.Success(5300)
     }
 }

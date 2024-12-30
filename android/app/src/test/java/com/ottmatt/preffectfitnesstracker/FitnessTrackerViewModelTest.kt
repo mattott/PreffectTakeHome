@@ -1,9 +1,9 @@
 package com.ottmatt.preffectfitnesstracker
 
 import android.content.res.Resources
-import com.ottmatt.preffectfitnesstracker.persistence.ApiResult
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessService
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalService
+import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
+import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
 import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
 import com.ottmatt.preffectfitnesstracker.ui.fitnesstracker.FitnessTrackerViewModel
 import io.mockk.clearAllMocks
@@ -31,11 +31,11 @@ import org.junit.Test
 class FitnessTrackerViewModelTest {
     private lateinit var viewModel: FitnessTrackerViewModel
     private lateinit var repository: FitnessTrackerRepository
-    private val fitnessService: FitnessService = mockk(relaxed = false)
-    private val fitnessGoalService: FitnessGoalService = mockk(relaxed = true)
+    private val fitnessDataSource: FitnessDataSource = mockk(relaxed = false)
+    private val fitnessGoalsDataSource: FitnessGoalsDataSource = mockk(relaxed = true)
     private val resources: Resources = mockk(relaxed = true)
-    private val dataToLoadSuccess: ApiResult.Success<Int> = ApiResult.Success(5000)
-    private val dataToLoadError: ApiResult.Error<Int> = ApiResult.Error()
+    private val dataToLoadSuccess: DataSourceResult.Success<Int> = DataSourceResult.Success(5000)
+    private val dataToLoadError: DataSourceResult.Error<Int> = DataSourceResult.Error()
 
     @Before
     fun setUp() {
@@ -50,13 +50,13 @@ class FitnessTrackerViewModelTest {
 
     @Test
     fun `Show loading state while data loading in progress`() = runTest {
-        coEvery { fitnessService.getStepCount() } coAnswers {
+        coEvery { fitnessDataSource.getStepCount() } coAnswers {
             delay(1000)
             dataToLoadSuccess
         }
         repository = FitnessTrackerRepository(
-            fitnessService,
-            fitnessGoalService,
+            fitnessDataSource,
+            fitnessGoalsDataSource,
             StandardTestDispatcher(testScheduler)
         )
         viewModel = FitnessTrackerViewModel(repository, resources)
@@ -70,11 +70,11 @@ class FitnessTrackerViewModelTest {
 
     @Test
     fun `Show content when data is loaded`() = runTest {
-        coEvery { fitnessService.getStepCount() } returns dataToLoadSuccess
+        coEvery { fitnessDataSource.getStepCount() } returns dataToLoadSuccess
 
         repository = FitnessTrackerRepository(
-            fitnessService,
-            fitnessGoalService,
+            fitnessDataSource,
+            fitnessGoalsDataSource,
             StandardTestDispatcher(testScheduler)
         )
         viewModel = FitnessTrackerViewModel(repository, resources)
@@ -89,11 +89,11 @@ class FitnessTrackerViewModelTest {
 
     @Test
     fun `Show error state if error appeared`() = runTest {
-        coEvery { fitnessService.getStepCount() } returns dataToLoadError
+        coEvery { fitnessDataSource.getStepCount() } returns dataToLoadError
 
         repository = FitnessTrackerRepository(
-            fitnessService,
-            fitnessGoalService,
+            fitnessDataSource,
+            fitnessGoalsDataSource,
             StandardTestDispatcher(testScheduler)
         )
         viewModel = FitnessTrackerViewModel(repository, resources)

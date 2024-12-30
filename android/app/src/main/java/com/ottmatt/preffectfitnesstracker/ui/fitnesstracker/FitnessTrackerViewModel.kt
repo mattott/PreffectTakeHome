@@ -4,7 +4,7 @@ import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ottmatt.preffectfitnesstracker.R
-import com.ottmatt.preffectfitnesstracker.persistence.ApiResult
+import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
 import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +28,7 @@ class FitnessTrackerViewModel @Inject constructor(
         _stepCountGoalUiState.asStateFlow()
 
     /**
-     * Fetch and update user fitness data.
+     * Load user fitness data, updating loading and error states as necessary.
      */
     fun loadFitnessData() {
         _stepCountUiState.update { state -> state.copy(isLoading = true) }
@@ -39,14 +39,14 @@ class FitnessTrackerViewModel @Inject constructor(
                     fitnessValue = stepCountResult.data ?: 0,
                     isLoading = false,
                     errorMessage = resources.getString(R.string.error_step_count),
-                    isError = stepCountResult is ApiResult.Error
+                    isError = stepCountResult is DataSourceResult.Error
                 )
             }
         }
     }
 
     /**
-     * Fetch and update user fitness goals.
+     * Load user fitness goals, updating loading and error states as necessary.
      */
     fun loadFitnessGoals() {
         _stepCountGoalUiState.update { state -> state.copy(isLoading = true) }
@@ -57,7 +57,7 @@ class FitnessTrackerViewModel @Inject constructor(
                     fitnessValue = stepCountGoalResult.data ?: 0,
                     isLoading = false,
                     errorMessage = resources.getString(R.string.error_step_goal),
-                    isError = stepCountGoalResult is ApiResult.Error
+                    isError = stepCountGoalResult is DataSourceResult.Error
                 )
             }
         }
