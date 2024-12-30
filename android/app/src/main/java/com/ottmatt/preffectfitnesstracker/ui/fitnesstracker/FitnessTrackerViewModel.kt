@@ -4,7 +4,9 @@ import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ottmatt.preffectfitnesstracker.R
+import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError
 import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError
 import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +40,7 @@ class FitnessTrackerViewModel @Inject constructor(
                 state.copy(
                     fitnessValue = stepCountResult.data ?: 0,
                     isLoading = false,
-                    errorMessage = resources.getString(R.string.error_step_count),
+                    errorMessage = getLocalErrorMessage(stepCountResult.error),
                     isError = stepCountResult is DataSourceResult.Error
                 )
             }
@@ -56,10 +58,24 @@ class FitnessTrackerViewModel @Inject constructor(
                 state.copy(
                     fitnessValue = stepCountGoalResult.data ?: 0,
                     isLoading = false,
-                    errorMessage = resources.getString(R.string.error_step_goal),
+                    errorMessage = getRemoteErrorMessage(stepCountGoalResult.error),
                     isError = stepCountGoalResult is DataSourceResult.Error
                 )
             }
         }
+    }
+
+    private fun getLocalErrorMessage(error: DataSourceError?): String {
+        return resources.getString(R.string.error_local_generic)
+    }
+
+    private fun getRemoteErrorMessage(error: DataSourceError?): String {
+        val errorResId = when (error) {
+            is RemoteDataSourceError.RedirectError -> R.string.error_remote_redirect
+            is RemoteDataSourceError.ClientError -> R.string.error_remote_client
+            is RemoteDataSourceError.ServerError -> R.string.error_remote_server
+            else -> R.string.error_remote_generic
+        }
+        return resources.getString(errorResId)
     }
 }

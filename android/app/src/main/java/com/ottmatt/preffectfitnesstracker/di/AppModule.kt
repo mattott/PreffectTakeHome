@@ -33,6 +33,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideHttpClient() = HttpClient(Android) {
+        expectSuccess = true
+
         install(Logging) {
             level = LogLevel.ALL
         }

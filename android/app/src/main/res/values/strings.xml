@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Preffect Fitness Tracker</string>
     <string name="daily_step_count">Today\'s steps</string>
-<!--    pluralize this string -->
     <string name="personal_daily_goal">Your daily step goal</string>
-    <string name="error_step_goal">Unable to get step goal</string>
-    <string name="error_step_count">Unable to get steps</string>
+    <string name="error_remote_redirect">Unexpected redirect.</string>
+    <string name="error_remote_client">Unexpected client issue.</string>
+    <string name="error_remote_server">Unexpected server issue.</string>
+    <string name="error_remote_generic">Unable to connect to server.</string>
+    <string name="error_local_generic">Unable to read from Health Connect API.</string>
 </resources>

@@ -4,10 +4,13 @@ package com.ottmatt.preffectfitnesstracker.persistence
  * Generic class for retrieving data or propagating errors from any DataSource.
  */
 sealed class DataSourceResult<T>(
-    val data: T? = null
+    val data: T? = null,
+    val error: DataSourceError? = null
 ) {
-    class Success<T>(data: T) : DataSourceResult<T>(data)
+    class Success<T>(data: T) : DataSourceResult<T>(data = data)
+    class Error<T>(error: DataSourceError) : DataSourceResult<T>(error = error)
+}
 
-    // Could pass an error message here if we cared about propagating the error message to the user.
-    class Error<T> : DataSourceResult<T>()
+open class DataSourceError(val message: String) {
+    class GenericError(message: String) : DataSourceError(message)
 }
