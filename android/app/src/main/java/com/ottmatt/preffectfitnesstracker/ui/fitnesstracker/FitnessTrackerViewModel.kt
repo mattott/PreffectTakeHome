@@ -1,7 +1,10 @@
 package com.ottmatt.preffectfitnesstracker.ui.fitnesstracker
 
+import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ottmatt.preffectfitnesstracker.R
+import com.ottmatt.preffectfitnesstracker.persistence.ApiResult
 import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,13 +16,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FitnessTrackerViewModel @Inject constructor(
-    private val fitnessTrackerRepository: FitnessTrackerRepository
+    private val fitnessTrackerRepository: FitnessTrackerRepository,
+    private val resources: Resources
 ) : ViewModel() {
-    private val _stepCountUiState = MutableStateFlow(FitnessUiState(100, false))
+    private val _stepCountUiState = MutableStateFlow(FitnessUiState(100))
     val stepCountUiState: StateFlow<FitnessUiState<Int>> =
         _stepCountUiState.asStateFlow()
 
-    private val _stepCountGoalUiState = MutableStateFlow(FitnessUiState(6000, false))
+    private val _stepCountGoalUiState = MutableStateFlow(FitnessUiState(6000))
     val stepCountGoalUiState: StateFlow<FitnessUiState<Int>> =
         _stepCountGoalUiState.asStateFlow()
 
@@ -29,11 +33,13 @@ class FitnessTrackerViewModel @Inject constructor(
     fun loadFitnessData() {
         _stepCountUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
-            val stepCount = fitnessTrackerRepository.getStepCount()
+            val stepCountResult = fitnessTrackerRepository.getStepCount()
             _stepCountUiState.update { state ->
                 state.copy(
-                    fitnessValue = stepCount,
-                    isLoading = false
+                    fitnessValue = stepCountResult.data ?: 0,
+                    isLoading = false,
+                    errorMessage = resources.getString(R.string.error_step_count),
+                    isError = stepCountResult is ApiResult.Error
                 )
             }
         }
@@ -45,11 +51,13 @@ class FitnessTrackerViewModel @Inject constructor(
     fun loadFitnessGoals() {
         _stepCountGoalUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
-            val stepCountGoal = fitnessTrackerRepository.getStepCountGoal()
+            val stepCountGoalResult = fitnessTrackerRepository.getStepCountGoal()
             _stepCountGoalUiState.update { state ->
                 state.copy(
-                    fitnessValue = stepCountGoal,
-                    isLoading = false
+                    fitnessValue = stepCountGoalResult.data ?: 0,
+                    isLoading = false,
+                    errorMessage = resources.getString(R.string.error_step_goal),
+                    isError = stepCountGoalResult is ApiResult.Error
                 )
             }
         }

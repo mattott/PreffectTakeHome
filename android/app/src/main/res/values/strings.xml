@@ -3,4 +3,6 @@
     <string name="daily_step_count">Today\'s steps</string>
 <!--    pluralize this string -->
     <string name="personal_daily_goal">Your daily step goal</string>
+    <string name="error_step_goal">Unable to get step goal</string>
+    <string name="error_step_count">Unable to get steps</string>
 </resources>

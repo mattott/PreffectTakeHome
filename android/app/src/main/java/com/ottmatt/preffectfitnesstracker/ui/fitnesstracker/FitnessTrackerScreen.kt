@@ -91,7 +91,7 @@ fun <T> FitnessCardWithProgress(
             )
 
             Text(
-                text = "${state.value.fitnessValue}",
+                text = if (state.value.isError) state.value.errorMessage else state.value.fitnessValue.toString(),
                 style = SubtitleStyle,
                 modifier = Modifier
                     .constrainAs(subtitle) {
@@ -101,7 +101,8 @@ fun <T> FitnessCardWithProgress(
                         bottom.linkTo(parent.bottom)
                     }
                     .padding(PaddingValues(top = 6.dp))
-                    .alpha(if (state.value.isLoading) 0f else 1f)
+                    .alpha(if (state.value.isLoading) 0f else 1f),
+                color = if (state.value.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
             )
 
             if (state.value.isLoading) {
