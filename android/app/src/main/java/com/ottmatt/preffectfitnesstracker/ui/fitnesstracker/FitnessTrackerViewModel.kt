@@ -24,19 +24,19 @@ class FitnessTrackerViewModel @Inject constructor(
     val fitnessGoalUiState: StateFlow<FitnessGoalUiState> =
         _fitnessGoalUiState.asStateFlow()
 
-    fun getCurrentDailySteps() {
+    fun loadCurrentFitness() {
         // how do we handle the case where we are waiting for results?
         // this was something that came up during the 2nd interview and something that I probably
         // need to have solved for.
         viewModelScope.launch {
-            fitnessTrackerRepository.getCurrentDailySteps()
+            fitnessTrackerRepository.loadCurrentFitness()
         }
     }
 
-    fun getPersonalDailyGoal() {
+    fun loadFitnessGoal() {
         // if this takes too long to fetch, then we need to make the request in a Service.
         viewModelScope.launch {
-            fitnessTrackerRepository.getPersonalDailyStepsGoal()
+            fitnessTrackerRepository.loadFitnessGoal()
         }
     }
 }
