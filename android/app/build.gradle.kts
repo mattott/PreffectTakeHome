@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hiltAndroid)
 }
@@ -16,6 +17,8 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
+
+        buildConfigField("String", "REMOTE_PREFFECT_URL", "\"https://mattott.github.io/preffect/v1/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -40,6 +43,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
@@ -70,6 +74,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.dagger.hilt.android)
     ksp(libs.dagger.hilt.compiler)
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.contentnegotiation)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.serialization)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

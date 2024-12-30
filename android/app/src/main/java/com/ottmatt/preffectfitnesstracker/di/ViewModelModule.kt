@@ -3,12 +3,13 @@ package com.ottmatt.preffectfitnesstracker.di
 import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessService
 import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalService
 import com.ottmatt.preffectfitnesstracker.persistence.local.StubbedFitnessService
-import com.ottmatt.preffectfitnesstracker.persistence.remote.StubbedFitnessGoalService
+import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteFitnessGoalService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import io.ktor.client.HttpClient
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
@@ -24,8 +25,8 @@ object ViewModelModule {
 
     @Provides
     @ViewModelScoped
-    fun getPersonalDailyGoalService(): FitnessGoalService {
-        return StubbedFitnessGoalService()
+    fun getPersonalDailyGoalService(httpClient: HttpClient): FitnessGoalService {
+        return RemoteFitnessGoalService(httpClient)
     }
 
     @Provides
