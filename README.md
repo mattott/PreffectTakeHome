@@ -9,16 +9,30 @@ The Android application is the fully implemented solution to the project.
 
 ## Build
 
-+ Open Android Studio, select file > open > select the "android" folder under PreffectTakeHome > click "ok"
-+ File > Build > Make Project
++ Open Android Studio
++ File > Open > Select <PreffectTakeHomeRoot>/android folder > Ok/Open
++ File > Sync Project with Gradle Files
++ Build > Make Project
 
 ## Deploy application
 
-+ File > Run > Run App
+### Create AVD or connect your phone
+
++ To create a new android virtual device, select Tools > Device Manager
++ Select Create Virtual Device
++ In the Virtual Device Configuration, select Pixel 9 > Next
++ Select the VanillaIceCream API 35 release with Google Play > Next
++ Finish
+
+### Run app on device
++ Run > Select Device...
++ Select your device/AVD
++ Run > Run 'app'
 
 ## Run unit tests
 
-+ Fully synchronize with gradle by clicking "sync project with gradle files" in the toolbar (the elephant icon).
++ File > Sync Project with Gradle Files
++ In the Project view panel on the left, select "Project" from the dropdown.
 + Right click on the "android/app/src/test" folder and select "Run 'Tests in Preffect_Fitness_Tracker'" 
 
 ## Tehcnical Overview
