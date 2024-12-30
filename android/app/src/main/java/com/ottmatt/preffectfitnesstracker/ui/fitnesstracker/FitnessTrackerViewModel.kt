@@ -1,6 +1,5 @@
 package com.ottmatt.preffectfitnesstracker.ui.fitnesstracker
 
-import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
@@ -32,7 +31,13 @@ class FitnessTrackerViewModel @Inject constructor(
         // need to have solved for.
         _fitnessUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
-            fitnessTrackerRepository.getStepCount()
+            val stepCount = fitnessTrackerRepository.getStepCount()
+            _fitnessUiState.update { state ->
+                state.copy(
+                    fitnessValue = stepCount,
+                    isLoading = false
+                )
+            }
         }
     }
 
@@ -40,7 +45,13 @@ class FitnessTrackerViewModel @Inject constructor(
         // if this takes too long to fetch, then we need to make the request in a Service.
         _fitnessGoalUiState.update { state -> state.copy(isLoading = true) }
         viewModelScope.launch {
-            fitnessTrackerRepository.getStepCountGoal()
+            val stepCountGoal = fitnessTrackerRepository.getStepCountGoal()
+            _fitnessGoalUiState.update { state ->
+                state.copy(
+                    fitnessValue = stepCountGoal,
+                    isLoading = false
+                )
+            }
         }
     }
 }

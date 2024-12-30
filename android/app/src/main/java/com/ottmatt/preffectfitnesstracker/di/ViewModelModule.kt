@@ -9,6 +9,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -24,5 +26,11 @@ object ViewModelModule {
     @ViewModelScoped
     fun getPersonalDailyGoalService(): FitnessGoalService {
         return StubbedFitnessGoalService()
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun getCoroutineDispatcher(): CoroutineDispatcher {
+        return Dispatchers.IO
     }
 }

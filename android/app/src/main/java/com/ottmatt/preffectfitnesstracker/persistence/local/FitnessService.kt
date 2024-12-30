@@ -5,7 +5,7 @@ package com.ottmatt.preffectfitnesstracker.persistence.local
  */
 interface FitnessService {
     /**
-     * Loads the fitness
+     * @return the user's current step count for the day.
      */
-    fun getStepCount(): Int
+    suspend fun getStepCount(): Int
 }
