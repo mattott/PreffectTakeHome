@@ -8,11 +8,11 @@ class FitnessTrackerRepository @Inject constructor(
     private val fitnessService: FitnessService,
     private val fitnessGoalService: FitnessGoalService
 ) {
-    fun loadCurrentFitness(): Int {
-        return fitnessService.getCurrentDailySteps()
+    fun getStepCount(): Int {
+        return fitnessService.getStepCount()
     }
 
-    fun loadFitnessGoal(): Int {
-        return fitnessGoalService.getDailyStepsGoal()
+    fun getStepCountGoal(): Int {
+        return fitnessGoalService.getStepCountGoal()
     }
 }

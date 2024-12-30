@@ -1,7 +1,7 @@
 package com.ottmatt.preffectfitnesstracker.persistence.local
 
 class StubbedFitnessService: FitnessService {
-    override fun getCurrentDailySteps(): Int {
+    override fun getStepCount(): Int {
         return 100
     }
 }

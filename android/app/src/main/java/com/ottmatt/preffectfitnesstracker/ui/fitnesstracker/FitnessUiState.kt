@@ -1,12 +1,12 @@
 package com.ottmatt.preffectfitnesstracker.ui.fitnesstracker
 
 /**
- * Provides values for the user's current daily steps.
+ * Provides generic values for loading the user's fitness criteria.
  *
- * @param currentSteps The current number of steps the user has taken today.
- * @param isLoading Whether or not we are in the process of gathering [currentSteps].
+ * @param fitnessValue The value representing the user's fitness criteria.
+ * @param isLoading Whether or not we are in the process of gathering [fitnessValue].
  */
-data class FitnessUiState(
-    val currentSteps: Int,
+data class FitnessUiState<T>(
+    val fitnessValue: T,
     val isLoading: Boolean
 )

@@ -1,5 +1,11 @@
 package com.ottmatt.preffectfitnesstracker.persistence.local
 
+/**
+ * Provides current statistics for the user's fitness level.
+ */
 interface FitnessService {
-    fun getCurrentDailySteps(): Int
+    /**
+     * Loads the fitness
+     */
+    fun getStepCount(): Int
 }

@@ -1,14 +1,25 @@
 package com.ottmatt.preffectfitnesstracker.ui.fitnesstracker
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,15 +34,15 @@ import com.ottmatt.preffectfitnesstracker.ui.theme.TitleStyle
 
 @Composable
 fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
-    // TODO: different styles for daily count and goal
     ConstraintLayout(
         modifier = Modifier
             .padding(24.dp)
             .fillMaxWidth()
     ) {
         val (dailyCount, dailyGoal) = createRefs()
-        DailyStepCount(
+        FitnessCardWithProgress(
             viewModel.fitnessUiState.collectAsState(),
+            R.string.daily_step_count,
             Modifier.constrainAs(dailyCount) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -40,8 +51,9 @@ fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
             }
         )
 
-        PersonalDailyGoal(
+        FitnessCardWithProgress(
             viewModel.fitnessGoalUiState.collectAsState(),
+            R.string.personal_daily_goal,
             Modifier.constrainAs(dailyGoal) {
                 top.linkTo(dailyCount.bottom)
                 start.linkTo(parent.start)
@@ -54,7 +66,11 @@ fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
 }
 
 @Composable
-fun DailyStepCount(fitnessUiState: State<FitnessUiState>, modifier: Modifier) {
+fun <T> FitnessCardWithProgress(
+    state: State<FitnessUiState<T>>,
+    @StringRes titleResId: Int,
+    modifier: Modifier
+) {
     Card(
         modifier = modifier.then(Modifier.padding(16.dp)),
         colors = CardDefaults.cardColors(containerColor = Color.White)
@@ -64,9 +80,9 @@ fun DailyStepCount(fitnessUiState: State<FitnessUiState>, modifier: Modifier) {
                 .padding(16.dp)
                 .fillMaxWidth()
         ) {
-            val (title, subtitle) = createRefs()
+            val (title, subtitle, isLoading) = createRefs()
             Text(
-                text = stringResource(id = R.string.daily_step_count),
+                text = stringResource(id = titleResId),
                 style = TitleStyle,
                 modifier = Modifier.constrainAs(title) {
                     top.linkTo(parent.top)
@@ -77,53 +93,38 @@ fun DailyStepCount(fitnessUiState: State<FitnessUiState>, modifier: Modifier) {
             )
 
             Text(
-                text = "${fitnessUiState.value.currentSteps}",
+                text = "${state.value.fitnessValue}",
                 style = SubtitleStyle,
-                modifier = Modifier.constrainAs(subtitle) {
-                    top.linkTo(title.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                }
-            )
-            createVerticalChain(title, subtitle, chainStyle = ChainStyle.Packed)
-        }
-    }
-}
-
-@Composable
-fun PersonalDailyGoal(fitnessGoalUiState: State<FitnessGoalUiState>, modifier: Modifier) {
-    Card(
-        modifier = modifier.then(Modifier.padding(16.dp)),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
-    ) {
-        ConstraintLayout(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            val (title, subtitle) = createRefs()
-            Text(
-                text = stringResource(id = R.string.personal_daily_goal),
-                style = TitleStyle,
-                modifier = Modifier.constrainAs(title) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(subtitle.top)
-                }
+                modifier = Modifier
+                    .constrainAs(subtitle) {
+                        top.linkTo(title.bottom)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(PaddingValues(top = 6.dp))
+                    .alpha(if (state.value.isLoading) 0f else 1f)
             )
 
-            Text(
-                text = "${fitnessGoalUiState.value.stepsInGoal}",
-                style = SubtitleStyle,
-                modifier = Modifier.constrainAs(subtitle) {
-                    top.linkTo(title.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
+            if (state.value.isLoading) {
+                Box(
+                    modifier = Modifier.constrainAs(isLoading) {
+                        top.linkTo(subtitle.top)
+                        start.linkTo(subtitle.start)
+                        end.linkTo(subtitle.end)
+                        bottom.linkTo(subtitle.bottom)
+                    },
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .width(24.dp)
+                            .aspectRatio(1f),
+                        color = MaterialTheme.colorScheme.secondary,
+                        trackColor = MaterialTheme.colorScheme.surfaceVariant
+                    )
                 }
-            )
+            }
             createVerticalChain(title, subtitle, chainStyle = ChainStyle.Packed)
         }
     }

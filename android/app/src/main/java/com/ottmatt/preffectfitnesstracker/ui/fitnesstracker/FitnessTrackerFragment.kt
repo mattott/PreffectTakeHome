@@ -24,12 +24,17 @@ class FitnessTrackerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return ComposeView(requireContext()).apply {
+        val view = ComposeView(requireContext()).apply {
             setContent {
                 PreffectFitnessTrackerTheme {
-                    FitnessTrackerScreen()
+                    FitnessTrackerScreen(viewModel)
                 }
             }
         }
+
+        viewModel.loadCurrentFitness()
+        viewModel.loadFitnessGoal()
+
+        return view
     }
 }
