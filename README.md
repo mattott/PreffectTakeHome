@@ -1,11 +1,8 @@
-# Android
-The Android application is the fully implemented solution to the project. 
+# Android (Full Implementation)
 
-+ The architecture of the app allows for easy swapping of data sources, whether that be for testing purposes or implementing Health Connect/Google Fit APIs.
-+ A few unit tests were written for the ViewModel, but there is more that can be tested. For example, we can test compatibility with devices which do('nt) have the Health Connect app installed using Firebase Test Lab.
-+ CI/CD was not impelemented due to time constraints.
-+ Local persistence/storage was not implemented due to time constraints.
-+ Assumptions were made about the speed with which data is fetched from the network. In long-running tasks, we would use a foreground service to prevent the system from killing our work.
+<img src="android_loading.png" alt="drawing" width="200"/>
+<img src="android_success.png" alt="drawing" width="200"/>
+<img src="android_error.png" alt="drawing" width="200"/>
 
 ## Build
 
@@ -44,6 +41,16 @@ The application is written using an MVVM architecture.
 + The repository abstracts/consolidates the data sources from the viewmodel and moves the work off the main thread.
 + The viewmodel takes the data from the repository and transforms it into something useable by the views.
 + Some important libraries are Hilt/Dagger, which provide the dependency injection framework to generate our dependencies. Coroutines library, which is the kotlin standard of multi-threading. Ktor, which is the kotlin native http client. Compose, which is the view framework provided by android (alternatively could have used xml).
+
+## Additional TODO
++ Swap the FitnessStubbedDataSource with one that fetches step count from the Health Connect API.
++ Modularize the app into features to support a larger project. Currently, it's a simple screen and doesn't need a complex architecture. If we were to add more features, we would refactor the data, common and UI features into sepearte android modules. This modularization would help multiple engineers work on separate parts of each app without disturbing each other's work. It would also enable custom Play Store updates and app delivery.
++ Adding local persistence to each application, such as Room and SwiftData. This lets us quickly show the user a populated UI while giving the app time to fetch updates.
++ Implement a CI/CD pipeline to run tests, build and deploy the applications to their respective stores. The features of this CI/CD are described in the CI/CD section of the README.
++ Write more tests for better coverage.
++ Potentially implement Service or WorkManager for long running network requests. E.g. if our network requests take some long period of time, we can run them in the background, populate our DB, and update the UI with the DB as the source of data.
++ Perform app profiling to optimize/find slow tasks.
++ Use proguard/R8 to minify and obfuscate our final dex code.
 
 # iOS
 
