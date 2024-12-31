@@ -1,6 +1,7 @@
 package com.ottmatt.preffectfitnesstracker
 
 import android.content.res.Resources
+import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError.GenericError
 import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
 import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
 import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
@@ -20,6 +21,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -35,7 +37,7 @@ class FitnessTrackerViewModelTest {
     private val fitnessGoalsDataSource: FitnessGoalsDataSource = mockk(relaxed = true)
     private val resources: Resources = mockk(relaxed = true)
     private val dataToLoadSuccess: DataSourceResult.Success<Int> = DataSourceResult.Success(5000)
-    private val dataToLoadError: DataSourceResult.Error<Int> = DataSourceResult.Error()
+    private val dataToLoadError: DataSourceResult.Error<Int> = DataSourceResult.Error(GenericError("Generic Error"))
 
     @Before
     fun setUp() {
@@ -102,6 +104,7 @@ class FitnessTrackerViewModelTest {
 
         val uiState = viewModel.stepCountUiState.value
         assertTrue(uiState.isError)
+        assertNotNull(uiState.errorMessage)
         assertFalse(uiState.isLoading)
     }
 }
