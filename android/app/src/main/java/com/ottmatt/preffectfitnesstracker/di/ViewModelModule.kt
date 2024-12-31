@@ -23,7 +23,7 @@ object ViewModelModule {
     @Provides
     @ViewModelScoped
     fun getFitnessDataSource(): FitnessDataSource {
-        return FitnessStubbedDataSource()
+        return FitnessStubbedDataSource(isDataSourceResultSuccess = true)
     }
 
     @Provides
