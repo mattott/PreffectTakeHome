@@ -1,4 +1,4 @@
-package com.ottmatt.preffectfitnesstracker.repository
+package com.ottmatt.preffectfitnesstracker.persistence.repository
 
 import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
 import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource

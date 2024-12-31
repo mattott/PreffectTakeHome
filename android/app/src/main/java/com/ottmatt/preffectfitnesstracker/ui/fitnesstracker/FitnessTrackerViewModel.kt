@@ -7,7 +7,7 @@ import com.ottmatt.preffectfitnesstracker.R
 import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError
 import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
 import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError
-import com.ottmatt.preffectfitnesstracker.repository.FitnessTrackerRepository
+import com.ottmatt.preffectfitnesstracker.persistence.repository.FitnessTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
