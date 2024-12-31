@@ -38,11 +38,17 @@ val Typography = Typography(
 val TitleStyle = TextStyle(
     fontSize = 24.sp,
     textAlign = TextAlign.Center,
-    color = Color.Gray
+    color = Color.DarkGray
 )
 
 val SubtitleStyle = TextStyle(
     fontSize = 24.sp,
     textAlign = TextAlign.Center,
-    color = Color.Blue
+    color = Color.Gray
+)
+
+val SubtitleErrorStyle = TextStyle(
+    fontSize = 24.sp,
+    textAlign = TextAlign.Center,
+    color = Color.Red
 )

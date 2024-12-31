@@ -27,6 +27,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.ottmatt.preffectfitnesstracker.R
 import com.ottmatt.preffectfitnesstracker.ui.theme.PreffectFitnessTrackerTheme
+import com.ottmatt.preffectfitnesstracker.ui.theme.SubtitleErrorStyle
 import com.ottmatt.preffectfitnesstracker.ui.theme.SubtitleStyle
 import com.ottmatt.preffectfitnesstracker.ui.theme.TitleStyle
 
@@ -92,7 +93,7 @@ fun <T> FitnessCardWithProgress(
 
             Text(
                 text = if (state.value.isError) state.value.errorMessage else state.value.fitnessValue.toString(),
-                style = SubtitleStyle,
+                style = if (state.value.isError) SubtitleErrorStyle else SubtitleStyle,
                 modifier = Modifier
                     .constrainAs(subtitle) {
                         top.linkTo(title.bottom)
@@ -102,7 +103,6 @@ fun <T> FitnessCardWithProgress(
                     }
                     .padding(PaddingValues(top = 6.dp))
                     .alpha(if (state.value.isLoading) 0f else 1f),
-                color = if (state.value.isError) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.primary
             )
 
             if (state.value.isLoading) {
