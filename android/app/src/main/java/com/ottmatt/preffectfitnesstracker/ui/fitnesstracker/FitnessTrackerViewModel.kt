@@ -40,7 +40,7 @@ class FitnessTrackerViewModel @Inject constructor(
                 state.copy(
                     fitnessValue = stepCountResult.data ?: 0,
                     isLoading = false,
-                    errorMessage = getLocalErrorMessage(stepCountResult.error),
+                    errorMessage = stepCountResult.error.localErrorMessage,
                     isError = stepCountResult is DataSourceResult.Error
                 )
             }
@@ -58,24 +58,25 @@ class FitnessTrackerViewModel @Inject constructor(
                 state.copy(
                     fitnessValue = stepCountGoalResult.data ?: 0,
                     isLoading = false,
-                    errorMessage = getRemoteErrorMessage(stepCountGoalResult.error),
+                    errorMessage = stepCountGoalResult.error.remoteErrorMessage,
                     isError = stepCountGoalResult is DataSourceResult.Error
                 )
             }
         }
     }
 
-    private fun getLocalErrorMessage(error: DataSourceError?): String {
-        return resources.getString(R.string.error_local_generic)
-    }
+    @Suppress("UnusedReceiverParameter")
+    private val DataSourceError?.localErrorMessage: String
+        get() = resources.getString(R.string.error_local_generic)
 
-    private fun getRemoteErrorMessage(error: DataSourceError?): String {
-        val errorResId = when (error) {
-            is RemoteDataSourceError.RedirectError -> R.string.error_remote_redirect
-            is RemoteDataSourceError.ClientError -> R.string.error_remote_client
-            is RemoteDataSourceError.ServerError -> R.string.error_remote_server
-            else -> R.string.error_remote_generic
+    private val DataSourceError?.remoteErrorMessage: String
+        get() {
+            val errorResId = when (this) {
+                is RemoteDataSourceError.RedirectError -> R.string.error_remote_redirect
+                is RemoteDataSourceError.ClientError -> R.string.error_remote_client
+                is RemoteDataSourceError.ServerError -> R.string.error_remote_server
+                else -> R.string.error_remote_generic
+            }
+            return resources.getString(errorResId)
         }
-        return resources.getString(errorResId)
-    }
 }
