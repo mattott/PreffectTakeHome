@@ -1,6 +1,6 @@
-package com.ottmatt.preffectfitnesstracker.persistence.remote
+package com.ottmatt.preffectfitnesstracker.data.remote
 
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError
+import com.ottmatt.preffectfitnesstracker.data.DataSourceError
 
 sealed class RemoteDataSourceError(message: String) : DataSourceError(message) {
     class RedirectError(message: String) : RemoteDataSourceError(message)

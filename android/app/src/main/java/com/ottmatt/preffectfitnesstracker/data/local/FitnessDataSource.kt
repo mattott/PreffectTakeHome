@@ -1,6 +1,6 @@
-package com.ottmatt.preffectfitnesstracker.persistence.local
+package com.ottmatt.preffectfitnesstracker.data.local
 
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
 
 /**
  * Provides current statistics for the user's fitness level.

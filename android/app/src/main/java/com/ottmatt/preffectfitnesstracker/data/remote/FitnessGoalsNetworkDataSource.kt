@@ -1,11 +1,11 @@
-package com.ottmatt.preffectfitnesstracker.persistence.remote
+package com.ottmatt.preffectfitnesstracker.data.remote
 
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError.GenericError
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
-import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError.ClientError
-import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError.RedirectError
-import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError.ServerError
-import com.ottmatt.preffectfitnesstracker.persistence.remote.model.DailyStepGoal
+import com.ottmatt.preffectfitnesstracker.data.DataSourceError.GenericError
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.remote.RemoteDataSourceError.ClientError
+import com.ottmatt.preffectfitnesstracker.data.remote.RemoteDataSourceError.RedirectError
+import com.ottmatt.preffectfitnesstracker.data.remote.RemoteDataSourceError.ServerError
+import com.ottmatt.preffectfitnesstracker.data.remote.model.DailyStepGoal
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException

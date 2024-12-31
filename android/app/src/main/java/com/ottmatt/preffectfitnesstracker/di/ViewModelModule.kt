@@ -2,10 +2,10 @@ package com.ottmatt.preffectfitnesstracker.di
 
 import android.content.Context
 import android.content.res.Resources
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessStubbedDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsNetworkDataSource
+import com.ottmatt.preffectfitnesstracker.data.local.FitnessDataSource
+import com.ottmatt.preffectfitnesstracker.data.local.FitnessStubbedDataSource
+import com.ottmatt.preffectfitnesstracker.data.remote.FitnessGoalsDataSource
+import com.ottmatt.preffectfitnesstracker.data.remote.FitnessGoalsNetworkDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -4,10 +4,10 @@ import android.content.res.Resources
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ottmatt.preffectfitnesstracker.R
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
-import com.ottmatt.preffectfitnesstracker.persistence.remote.RemoteDataSourceError
-import com.ottmatt.preffectfitnesstracker.persistence.repository.FitnessTrackerRepository
+import com.ottmatt.preffectfitnesstracker.data.DataSourceError
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.remote.RemoteDataSourceError
+import com.ottmatt.preffectfitnesstracker.data.repository.FitnessTrackerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

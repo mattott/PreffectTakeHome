@@ -1,4 +1,4 @@
-package com.ottmatt.preffectfitnesstracker.persistence.remote.model
+package com.ottmatt.preffectfitnesstracker.data.remote.model
 
 import kotlinx.serialization.Serializable
 

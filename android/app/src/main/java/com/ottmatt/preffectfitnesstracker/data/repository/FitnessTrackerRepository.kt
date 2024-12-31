@@ -1,8 +1,8 @@
-package com.ottmatt.preffectfitnesstracker.persistence.repository
+package com.ottmatt.preffectfitnesstracker.data.repository
 
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.local.FitnessDataSource
+import com.ottmatt.preffectfitnesstracker.data.remote.FitnessGoalsDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

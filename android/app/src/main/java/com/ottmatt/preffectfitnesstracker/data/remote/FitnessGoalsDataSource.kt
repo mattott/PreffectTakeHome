@@ -1,6 +1,6 @@
-package com.ottmatt.preffectfitnesstracker.persistence.remote
+package com.ottmatt.preffectfitnesstracker.data.remote
 
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
 
 /**
  * Provides data on the user's fitness goals.

@@ -1,11 +1,11 @@
 package com.ottmatt.preffectfitnesstracker
 
 import android.content.res.Resources
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceError.GenericError
-import com.ottmatt.preffectfitnesstracker.persistence.DataSourceResult
-import com.ottmatt.preffectfitnesstracker.persistence.local.FitnessDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.remote.FitnessGoalsDataSource
-import com.ottmatt.preffectfitnesstracker.persistence.repository.FitnessTrackerRepository
+import com.ottmatt.preffectfitnesstracker.data.DataSourceError.GenericError
+import com.ottmatt.preffectfitnesstracker.data.DataSourceResult
+import com.ottmatt.preffectfitnesstracker.data.local.FitnessDataSource
+import com.ottmatt.preffectfitnesstracker.data.remote.FitnessGoalsDataSource
+import com.ottmatt.preffectfitnesstracker.data.repository.FitnessTrackerRepository
 import com.ottmatt.preffectfitnesstracker.ui.fitnesstracker.FitnessTrackerViewModel
 import io.mockk.clearAllMocks
 import io.mockk.coEvery

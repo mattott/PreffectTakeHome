@@ -1,4 +1,4 @@
-package com.ottmatt.preffectfitnesstracker.persistence
+package com.ottmatt.preffectfitnesstracker.data
 
 /**
  * Generic class for retrieving data or propagating errors from any DataSource.
