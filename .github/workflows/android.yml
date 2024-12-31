@@ -5,6 +5,10 @@ on:
     branches: [ master ]
     paths: [ 'android/**' ]
 
+defaults:
+  run:
+    working-directory: ./android
+
 jobs:
   build:
 
