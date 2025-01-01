@@ -9,7 +9,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
+import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -32,7 +32,7 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient() = HttpClient(Android) {
+    fun provideHttpClient() = HttpClient(OkHttp) {
         expectSuccess = true
 
         install(Logging) {
