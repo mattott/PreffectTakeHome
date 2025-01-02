@@ -62,4 +62,16 @@
 
 # iOS
 
-T.B.D.
+## Build
+
++ Open Xcode
++ Select "Open Existing Project"
++ Navigate to the project folder and select the "<PreffectTakeHomeRoot>/ios/Preffect Fitness Tracker.xcodeproj" File
++ Click "Open"
++ In the toolbar, select "Product" > "Scheme" > "Choose Scheme" and select "Preffect Fitness Tracker"
++ In the toolbar, select "Product" > "Destination" > and select "iPhone 16 Pro"
++ In the toolbar, select "Product" > "Build"
+
+## Deploy application
+
++ In the toolbar, select "Product" > "Run"
