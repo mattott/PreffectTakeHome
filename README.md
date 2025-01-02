@@ -1,3 +1,4 @@
+[![Android CI](https://github.com/mattott/PreffectTakeHome/actions/workflows/android.yml/badge.svg)](https://github.com/mattott/PreffectTakeHome/actions/workflows/android.yml)
 # Android (Full Implementation)
 
 <img src="android_loading.png" alt="drawing" width="200"/>
