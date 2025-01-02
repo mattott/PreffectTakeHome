@@ -7,6 +7,7 @@ import com.ottmatt.preffectfitnesstracker.data.local.FitnessDataSource
 import com.ottmatt.preffectfitnesstracker.data.remote.FitnessGoalsDataSource
 import com.ottmatt.preffectfitnesstracker.data.repository.FitnessTrackerRepository
 import com.ottmatt.preffectfitnesstracker.ui.fitnesstracker.FitnessTrackerViewModel
+import com.ottmatt.preffectfitnesstracker.ui.fitnesstracker.FitnessUiState
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -20,8 +21,6 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -37,7 +36,8 @@ class FitnessTrackerViewModelTest {
     private val fitnessGoalsDataSource: FitnessGoalsDataSource = mockk(relaxed = true)
     private val resources: Resources = mockk(relaxed = true)
     private val dataToLoadSuccess: DataSourceResult.Success<Int> = DataSourceResult.Success(5000)
-    private val dataToLoadError: DataSourceResult.Error<Int> = DataSourceResult.Error(GenericError("Generic Error"))
+    private val dataToLoadError: DataSourceResult.Error<Int> =
+        DataSourceResult.Error(GenericError("Generic Error"))
 
     @Before
     fun setUp() {
@@ -66,8 +66,7 @@ class FitnessTrackerViewModelTest {
         runCurrent()
 
         val uiState = viewModel.stepCountUiState.value
-        assertTrue(uiState.isLoading)
-        assertFalse(uiState.isError)
+        assertEquals(FitnessUiState.Loading, uiState)
     }
 
     @Test
@@ -84,9 +83,8 @@ class FitnessTrackerViewModelTest {
         runCurrent()
 
         val uiState = viewModel.stepCountUiState.value
-        assertEquals(dataToLoadSuccess.data, uiState.fitnessValue)
-        assertFalse(uiState.isLoading)
-        assertFalse(uiState.isError)
+        assertTrue(uiState is FitnessUiState.Fitness)
+        assertEquals(dataToLoadSuccess.data, (uiState as FitnessUiState.Fitness).data)
     }
 
     @Test
@@ -103,8 +101,6 @@ class FitnessTrackerViewModelTest {
         runCurrent()
 
         val uiState = viewModel.stepCountUiState.value
-        assertTrue(uiState.isError)
-        assertNotNull(uiState.errorMessage)
-        assertFalse(uiState.isLoading)
+        assertTrue(uiState is FitnessUiState.Error)
     }
 }
