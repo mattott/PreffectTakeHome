@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
@@ -65,8 +66,8 @@ fun FitnessTrackerScreen(viewModel: FitnessTrackerViewModel = viewModel()) {
 }
 
 @Composable
-fun <T> FitnessCardWithProgress(
-    state: State<FitnessUiState<T>>,
+fun FitnessCardWithProgress(
+    state: State<FitnessUiState>,
     @StringRes titleResId: Int,
     modifier: Modifier
 ) {
@@ -92,8 +93,8 @@ fun <T> FitnessCardWithProgress(
             )
 
             Text(
-                text = if (state.value.isError) state.value.errorMessage else state.value.fitnessValue.toString(),
-                style = if (state.value.isError) SubtitleErrorStyle else SubtitleStyle,
+                text = state.value.getSubtitleText(),
+                style = state.value.getSubtitleStyle(),
                 modifier = Modifier
                     .constrainAs(subtitle) {
                         top.linkTo(title.bottom)
@@ -102,10 +103,10 @@ fun <T> FitnessCardWithProgress(
                         bottom.linkTo(parent.bottom)
                     }
                     .padding(PaddingValues(top = 6.dp))
-                    .alpha(if (state.value.isLoading) 0f else 1f),
+                    .alpha(state.value.getSubtitleAlpha()),
             )
 
-            if (state.value.isLoading) {
+            if (state.value is FitnessUiState.Loading) {
                 Box(
                     modifier = Modifier.constrainAs(isLoading) {
                         top.linkTo(subtitle.top)
@@ -128,6 +129,29 @@ fun <T> FitnessCardWithProgress(
         }
     }
 }
+
+private fun FitnessUiState.getSubtitleText(): String {
+    return when (this) {
+        is FitnessUiState.Error -> message
+        is FitnessUiState.Fitness -> data.toString()
+        is FitnessUiState.Loading -> ""
+    }
+}
+
+private fun FitnessUiState.getSubtitleStyle(): TextStyle {
+    return when (this) {
+        is FitnessUiState.Error -> SubtitleErrorStyle
+        else -> SubtitleStyle
+    }
+}
+
+private fun FitnessUiState.getSubtitleAlpha(): Float {
+    return when (this) {
+        is FitnessUiState.Loading -> 0f
+        else -> 1f
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable
